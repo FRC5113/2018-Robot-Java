@@ -11,19 +11,20 @@ public class DriveTrain
 	
 	public void init()
 	{
-		leftRear = new WPI_TalonSRX(0);
-		leftFront = new WPI_TalonSRX(1);
-		rightRear = new WPI_TalonSRX(2);
-		rightFront = new WPI_TalonSRX(3);
-		
-		rightRear.setInverted(true);
-		rightFront.setInverted(true);
+		leftRear = new WPI_TalonSRX(2);
+		leftFront = new WPI_TalonSRX(3);
+		rightRear = new WPI_TalonSRX(0);
+		rightFront = new WPI_TalonSRX(1);
+
+		leftRear.setInverted(true);
+		leftFront.setInverted(true);
 	}
 	
 	public void drive(double leftPower, double rightPower)
 	{
 		leftPower *= 0.99;
 		rightPower *= 0.99;
+	
 		leftRear.set(leftPower);
 		leftFront.set(leftPower);
 		rightRear.set(rightPower);

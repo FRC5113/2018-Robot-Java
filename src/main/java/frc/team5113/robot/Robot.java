@@ -1,13 +1,22 @@
 package frc.team5113.robot;
 
 import edu.wpi.first.wpilibj.IterativeRobot;
+import frc.team5113.managers.JoystickManager;
+import frc.team5113.subsytems.DriveTrain;
 
 public class Robot extends IterativeRobot
 {
+	DriveTrain dt;
+	JoystickManager jm;
+	
     @Override
     public void robotInit()
     {
+    	dt = new DriveTrain();
+    	dt.init();
     	
+    	jm = new JoystickManager();
+    	jm.init();
     }
 
     @Override
@@ -49,7 +58,7 @@ public class Robot extends IterativeRobot
     @Override
     public void teleopPeriodic()
     {
-    	
+    	jm.handleJoystickControls(dt);
     }
 
     @Override
