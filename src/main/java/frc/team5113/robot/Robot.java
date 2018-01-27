@@ -9,8 +9,8 @@ public class Robot extends IterativeRobot
 	DriveTrain dt;
 	JoystickManager jm;
 	SensorManager smanager;
-
-    @Override
+	
+	@Override
     public void robotInit()
     {
     	dt = new DriveTrain();
@@ -21,7 +21,6 @@ public class Robot extends IterativeRobot
     	
     	smanager = new SensorManager();
     	smanager.init();
-
     }
 
     @Override

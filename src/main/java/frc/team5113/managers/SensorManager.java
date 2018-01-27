@@ -58,8 +58,9 @@ public class SensorManager
             {
                 entry.getValue().update(timeTaken);
             }*/
-        	System.out.println(gyro.getAngle());
+        	//System.out.println(gyro.getAngle());
         	SmartDashboard.putNumber("Gyro", gyro.getAngle());
+        	System.out.println(SmartDashboard.getNumber("Gyro", 0));
         }
     }
 }
