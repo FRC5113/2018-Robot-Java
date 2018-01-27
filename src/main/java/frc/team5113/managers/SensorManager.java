@@ -11,12 +11,13 @@ public class SensorManager
     private long timeTaken, lastUpdate = 0;
     private long timeTolerance;
     private Gyro gyro;
+    private Proximity proximity;
     public void init() {
     	timeTolerance = 5000;
         SensorMap = new HashMap<String, SensorBase>();
         
         gyro = new Gyro("Gyro");
-        
+        proximity = new Proximity("Proximity");
         //this.addAll();
         
     }
@@ -24,6 +25,7 @@ public class SensorManager
      {
     	 //this.add(lidar);
     	 //this.add(gyro);
+    	 //this.add(proximity);
      }
     
     //adds a sensor to the hashmap
