@@ -12,6 +12,7 @@ public class PID_Controller
 	    double period = 0.05;
 	    double setpoint = 0;
 	    private Gyro g;
+	    private double enginePowerLeft, enginePowerRight;
 	    private double previous_error, integral, derivative, rcw;
 	    	   /* 
 		PID_Controller PID_Controller(p, i, d, f, PID_Source, PID_Output, period);
@@ -21,11 +22,13 @@ public class PID_Controller
 		PID_Controller.setOutputRange(minimumOutput, maximumOutput);
 		PID_Controller.enable();
 		*/
-    	public PID_Controller(Gyro g)
+    	public PID_Controller(Gyro g, DriveTrain dt)
     	{
     		this.g = g;
     		previous_error = 0;
     		integral = 0;
+    		enginePowerLeft = dt.getEnginePowerLeft();
+    		enginePowerRight = dt.getEnginePowerRight();
     	}
 
     	public void setSetpoint(double setpoint)
@@ -49,15 +52,17 @@ public class PID_Controller
     		return rcw;
     	}
 		
-    	/*public void findAndChangeEnginePower(double change) //note a positive change increases right power and negative increases left. The total power is constant throughout auton
+    	public void findAndChangeEnginePower() //note a positive change increases right power and negative increases left. The total power is constant throughout auton
     	{
-    		enginePower = f % 100; //this finds the right power
-    		f = f - enginePower;
-         	f = f / 100; //this finds the left power 
-         	enginePower = enginePower + change;
-         	f = f - change;
-         	f = (enginePower * 100) + f;     
-    	}*/
+    		
+    		double change = execute();
+    		enginePowerRight = f % 100; //this finds the right power
+    		enginePowerLeft = f - enginePowerRight;
+    		enginePowerLeft = enginePowerLeft / 100; //this finds the left power 
+         	enginePowerRight = enginePowerRight + change;
+         	enginePowerLeft = enginePowerLeft - change;
+         	f = (enginePowerRight * 100) + enginePowerLeft;     
+    	}
 
 	
 	

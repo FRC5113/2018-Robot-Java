@@ -7,11 +7,12 @@ import sensors.*;
 import java.util.*;
 public class SensorManager
 {
-    private HashMap<String, SensorBase> SensorMap;
-    private long timeTaken, lastUpdate = 0;
-    private long timeTolerance;
-    private Gyro gyro;
-    private Proximity proximity;
+    HashMap<String, SensorBase> SensorMap;
+    long timeTaken, lastUpdate = 0;
+    long timeTolerance;
+    Gyro gyro;
+    Proximity proximity;
+    StringPot pot;
     public void init() {
     	timeTolerance = 5000;
         SensorMap = new HashMap<String, SensorBase>();
@@ -19,7 +20,7 @@ public class SensorManager
         gyro = new Gyro("Gyro");
         proximity = new Proximity("Proximity");
         //this.addAll();
-        
+        pot = new StringPot("StringPot");
     }
      public void addAll()
      {
@@ -59,8 +60,23 @@ public class SensorManager
                 entry.getValue().update(timeTaken);
             }*/
         	//System.out.println(gyro.getAngle());
-        	SmartDashboard.putNumber("Gyro", gyro.getAngle());
-        	System.out.println(SmartDashboard.getNumber("Gyro", 0));
+        	
+        	
         }
+        
+        SmartDashboard.putNumber("Gyro", gyro.getAngle());
+    	System.out.println(SmartDashboard.getNumber("Gyro", 0));
+    	
+    	//SmartDashboard.putNumber("StringPot", pot.getValue());
+    	//System.out.println(pot.getValue());
+    }
+    
+    public double getGyro()
+    {
+    	return gyro.getAngle();
+    }
+    public double getDistance()
+    {
+    	return 10;
     }
 }
