@@ -21,6 +21,10 @@ public class Robot extends IterativeRobot
     	
     	smanager = new SensorManager();
     	smanager.init();
+    	
+    	auton = new AutonManager();
+    	auton.init();
+    	
     }
 
     @Override
@@ -32,8 +36,7 @@ public class Robot extends IterativeRobot
     @Override
     public void autonomousInit()
     {
-    	auton = new AutonManager();
-    	auton.init();
+    	
     }
 
     @Override
@@ -57,7 +60,7 @@ public class Robot extends IterativeRobot
     @Override
     public void autonomousPeriodic()
     {
-    	
+    	auton.update(dt, smanager);
     }
 
     @Override

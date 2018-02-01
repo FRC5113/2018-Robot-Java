@@ -13,5 +13,5 @@ public abstract class AutonCase
 		this.code = code;
 	}
 	
-	public abstract void update();
+	public abstract void update(AutonDrive ad);
 }

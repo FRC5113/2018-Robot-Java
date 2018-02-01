@@ -13,18 +13,18 @@ public class DriveTrain
 	
 	public void init()
 	{
-		leftRear = new WPI_TalonSRX(15);
-		leftFront = new WPI_TalonSRX(14);
-		rightRear = new WPI_TalonSRX(0);
-		rightFront = new WPI_TalonSRX(1);
+		leftRear = new WPI_TalonSRX(2);
+		leftFront = new WPI_TalonSRX(0);
+		rightRear = new WPI_TalonSRX(1);
+		rightFront = new WPI_TalonSRX(3);
 		/*
 		leftRear.configSelectedFeedbackSensor(lr, 0, 100);
 		leftFront.configSelectedFeedbackSensor(lf, 0, 100);
 		rightRear.configSelectedFeedbackSensor(rr, 0, 100);
 		rightFront.configSelectedFeedbackSensor(rf, 0, 100);*/
 		
-		leftRear.setInverted(true);
-		leftFront.setInverted(true);
+		rightRear.setInverted(true);
+		rightFront.setInverted(true);
 	}
 	
 	public void drive(double leftPower, double rightPower)

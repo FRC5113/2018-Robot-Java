@@ -3,19 +3,18 @@ package frc.team5113.auton;
 public class MiddleSwitch extends AutonCase
 {
 	int select = 0;
+	boolean done;
 	public void init()
 	{
-		AutonDrive ad = new AutonDrive();
-		
+		done = false;
 	}
 	@Override
-	public void update() {
+	public void update(AutonDrive ad) {
 		// TODO Auto-generated method stub
-		switch(select)
-		{
-		case 0:
-			
-		}
+		if(!done)
+			done = ad.turnDegrees(360);
 	}
+	
+	
 
 }

@@ -65,10 +65,10 @@ public class SensorManager
         }
         
         SmartDashboard.putNumber("Gyro", gyro.getAngle());
-    	System.out.println(SmartDashboard.getNumber("Gyro", 0));
+    	//System.out.println(SmartDashboard.getNumber("Gyro", 0));
     	
-    	//SmartDashboard.putNumber("StringPot", pot.getValue());
-    	//System.out.println(pot.getValue());
+    	SmartDashboard.putNumber("StringPot", pot.getValue());
+    	System.out.println(pot.getValue());
     }
     
     public double getGyro()
