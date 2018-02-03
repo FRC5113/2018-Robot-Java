@@ -1,26 +1,27 @@
 package sensors;
 
-
 import edu.wpi.first.wpilibj.AnalogInput;
 
 public class StringPot extends SensorBase
 {
-    public double height;
+    public double voltage;
     AnalogInput stringP;
+    final double ratio = 10.58;
     public StringPot(String name)
     {
         super(name);
         this.name = name;
         stringP = new AnalogInput(1);
     }
-
-    public void update()
+    
+    @Override
+    public void update(long elapsed)
     {
-        height = stringP.getValue();
+        voltage = stringP.getValue();
     }
 
     public double getValue()
     {
-        return height;
+        return (voltage-7)*ratio - .067;
     }
 }

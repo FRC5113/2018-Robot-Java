@@ -13,14 +13,16 @@ public class SensorManager
     Gyro gyro;
     Proximity proximity;
     StringPot pot;
+    Lidar lidar;
     public void init() {
-    	timeTolerance = 5000;
+    	timeTolerance = 5000000;
         SensorMap = new HashMap<String, SensorBase>();
         
         gyro = new Gyro("Gyro");
         proximity = new Proximity("Proximity");
         //this.addAll();
         pot = new StringPot("StringPot");
+        lidar = new Lidar("Lidar");
     }
      public void addAll()
      {
@@ -60,15 +62,20 @@ public class SensorManager
                 entry.getValue().update(timeTaken);
             }*/
         	//System.out.println(gyro.getAngle());
+        	long time = System.nanoTime();
+        	pot.update(time);
+        	lidar.update(time);
+        	SmartDashboard.putNumber("Gyro", gyro.getAngle());
+        	//System.out.println(SmartDashboard.getNumber("Gyro", 0));
         	
+        	SmartDashboard.putNumber("StringPot", pot.getValue());
+        	//System.out.println(pot.getValue());
         	
+        	SmartDashboard.putNumber("Lidar", lidar.getDistance());
+        	//System.out.println("Lidar: " + lidar.getDistance());
         }
         
-        SmartDashboard.putNumber("Gyro", gyro.getAngle());
-    	//System.out.println(SmartDashboard.getNumber("Gyro", 0));
-    	
-    	SmartDashboard.putNumber("StringPot", pot.getValue());
-    	System.out.println(pot.getValue());
+        
     }
     
     public double getGyro()

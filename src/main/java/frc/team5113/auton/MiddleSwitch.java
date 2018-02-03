@@ -9,10 +9,10 @@ public class MiddleSwitch extends AutonCase
 		done = false;
 	}
 	@Override
-	public void update(AutonDrive ad) {
+	public void update(AutonCommands command) {
 		// TODO Auto-generated method stub
 		if(!done)
-			done = ad.turnDegrees(360);
+			done = command.turnDegrees(360);
 	}
 	
 	

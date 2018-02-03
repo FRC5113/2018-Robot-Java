@@ -1,6 +1,6 @@
 package frc.team5113.managers;
 
-import frc.team5113.auton.AutonDrive;
+import frc.team5113.auton.AutonCommands;
 import frc.team5113.auton.MiddleSwitch;
 import frc.team5113.subsytems.DriveTrain;
 
@@ -8,14 +8,14 @@ public class AutonManager
 {
 	private int selectedCase;
 	private final int NUM_OF_CASES = 0;
-	AutonDrive au;
+	AutonCommands command;
 	MiddleSwitch middleSwitch;
 	public void init()
 	{
 		selectedCase = 1;
 		
-		au = new AutonDrive();
-		au.init();
+		command = new AutonCommands();
+		command.init();
 		middleSwitch = new MiddleSwitch();
 		middleSwitch.init();
 		
@@ -23,8 +23,8 @@ public class AutonManager
 	
 	public void update(DriveTrain dt, SensorManager sm)
 	{
-		au.update(dt, sm);
-		middleSwitch.update(au);
+		command.update(dt, sm);
+		middleSwitch.update(command);
 		/*switch(selectedCase)
 		{
 		default:
