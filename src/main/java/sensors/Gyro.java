@@ -2,7 +2,7 @@ package sensors;
 
 import edu.wpi.first.wpilibj.ADXRS450_Gyro;
 
-public class Gyro extends SensorBase
+public class Gyro extends Sensor
 {
 	private ADXRS450_Gyro gyru;
 	public Gyro(String name)

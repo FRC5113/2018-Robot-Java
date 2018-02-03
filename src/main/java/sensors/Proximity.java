@@ -2,15 +2,15 @@ package sensors;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 
-public class Proximity extends SensorBase
+public class Proximity extends Sensor
 {
 	private AnalogInput proximity;
 	private double voltage;
-	public Proximity(String name)
+	public Proximity(String name, int port)
 	{
 		super(name);
     	this.name = name;
-    	proximity = new AnalogInput(0); //based on location on roborio
+    	proximity = new AnalogInput(port); //based on location on roborio
 	}
 	
 	//10-80cm sensor

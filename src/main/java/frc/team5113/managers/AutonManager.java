@@ -15,7 +15,7 @@ public class AutonManager
 		selectedCase = 1;
 		
 		command = new AutonCommands();
-		command.init();
+		//command.init();
 		middleSwitch = new MiddleSwitch();
 		middleSwitch.init();
 		
@@ -23,7 +23,7 @@ public class AutonManager
 	
 	public void update(DriveTrain dt, SensorManager sm)
 	{
-		command.update(dt, sm);
+		//command.update(dt, sm);
 		middleSwitch.update(command);
 		/*switch(selectedCase)
 		{

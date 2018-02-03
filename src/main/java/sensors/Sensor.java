@@ -1,8 +1,8 @@
 package sensors;
-public abstract class SensorBase
+public abstract class Sensor
 {
     protected String name;
-    public SensorBase(String name)
+    public Sensor(String name)
     {
         this.name = name;
     }

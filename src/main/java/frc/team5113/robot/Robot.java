@@ -3,6 +3,10 @@ package frc.team5113.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import frc.team5113.managers.*;
 import frc.team5113.subsytems.DriveTrain;
+import sensors.Gyro;
+import sensors.Lidar;
+import sensors.Proximity;
+import sensors.StringPot;
 
 public class Robot extends IterativeRobot
 {
@@ -10,9 +14,13 @@ public class Robot extends IterativeRobot
 	JoystickManager jm;
 	SensorManager smanager;
 	AutonManager auton;
+	
+	//delete
+	long time;
+	
 	@Override
     public void robotInit()
-    {
+    {	
     	dt = new DriveTrain();
     	dt.init();
     	
@@ -21,10 +29,16 @@ public class Robot extends IterativeRobot
     	
     	smanager = new SensorManager();
     	smanager.init();
+    	smanager.add(new Gyro("Gyro"));
+    	smanager.add(new Proximity("Proximity", 3));
+    	smanager.add(new Lidar("Lidar"));
+    	smanager.add(new StringPot("StringPot", 1));
     	
     	auton = new AutonManager();
     	auton.init();
     	
+    	//delete
+    	time = System.currentTimeMillis();
     }
 
     @Override
@@ -69,7 +83,10 @@ public class Robot extends IterativeRobot
     	jm.handleJoystickControls(dt);
     	smanager.update();
 
+    	System.out.println(System.currentTimeMillis() - time);
+    	System.out.println(System.nanoTime() / 1000000.0);
     	
+    	time = System.currentTimeMillis();
     }
 
     @Override

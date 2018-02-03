@@ -2,16 +2,16 @@ package sensors;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 
-public class StringPot extends SensorBase
+public class StringPot extends Sensor
 {
     public double voltage;
     AnalogInput stringP;
     final double ratio = 10.58;
-    public StringPot(String name)
+    public StringPot(String name, int port)
     {
         super(name);
         this.name = name;
-        stringP = new AnalogInput(1);
+        stringP = new AnalogInput(port);
     }
     
     @Override

@@ -4,7 +4,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 
 import frc.team5113.subsytems.DriveTrain;
 
-public class Encoders extends SensorBase
+public class Encoders extends Sensor
 {
 	private FeedbackDevice[] encoders;
 	
