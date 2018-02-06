@@ -17,11 +17,11 @@ public class StringPot extends Sensor
     @Override
     public void update(long elapsed)
     {
-        voltage = stringP.getValue();
+        voltage = stringP.getVoltage();
     }
 
     public double getValue()
     {
-        return (voltage-7)*ratio - .067;
+        return voltage*ratio - .06 ;
     }
 }

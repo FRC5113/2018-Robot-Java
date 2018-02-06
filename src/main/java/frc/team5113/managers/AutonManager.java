@@ -13,14 +13,15 @@ public class AutonManager
 	MiddleSwitch middleSwitch;
 	private int currentState;
 	
-	public void init()
+	public void init(SensorManager sm, DriveTrain dt, PID_Controller pid)
 	{
 		selectedCase = 1;
 		
 		command = new AutonCommands();
-		//command.init();
+		command.init(sm, pid, dt);
 		middleSwitch = new MiddleSwitch();
 		middleSwitch.init();
+		
 		
 	}
 	
@@ -31,7 +32,8 @@ public class AutonManager
 	 */
 	public void update()
 	{
-		switch(currentState)
+		command.update();
+		/*switch(currentState)
 		{
 			case 0:
 				//check current location and 3 letter code
@@ -47,6 +49,6 @@ public class AutonManager
 				//check the distance
 				//if over line stop
 			break;
-		}
+		}*/
 	}
 }

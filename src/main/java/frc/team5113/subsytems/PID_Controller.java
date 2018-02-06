@@ -1,69 +1,62 @@
 package frc.team5113.subsytems;
 
+import frc.team5113.managers.SensorManager;
 import sensors.Gyro;
 
 public class PID_Controller
 {
+	private double kp, ki, kd;
+	private long lastUpdate;
+	private double summedError, lastError, setPoint;
+	SensorManager sm;
+	DriveTrain dt;
+	public PID_Controller(double kp, double ki, double kd, SensorManager sm)
+	{
+		this.kp = kp;
+		this.ki = ki;
+		this.kd = kd;
+		this.sm = sm;
+		lastUpdate = System.nanoTime() / 1000000000;
+		setPoint = 0;
+	}
 	
-	    double p = 1;
-	    double i = 1;
-	    double d = 1; 
-	    double f = 8080; // starting engine power
-	    double period = 0.05;
-	    double setpoint = 0;
-	    private Gyro g;
-	    private double enginePowerLeft, enginePowerRight;
-	    private double previous_error, integral, derivative, rcw;
-	    	   /* 
-		PID_Controller PID_Controller(p, i, d, f, PID_Source, PID_Output, period);
-		PID_Controller.setPID(p, i, d);
-		PID_Controller.setPercentTolerance (percentage);
-		PID_Controller.setSetpoint(setpoint);
-		PID_Controller.setOutputRange(minimumOutput, maximumOutput);
-		PID_Controller.enable();
-		*/
-    	public PID_Controller(Gyro g, DriveTrain dt)
-    	{
-    		this.g = g;
-    		previous_error = 0;
-    		integral = 0;
-    		enginePowerLeft = dt.getEnginePowerLeft();
-    		enginePowerRight = dt.getEnginePowerRight();
-    	}
-
-    	public void setSetpoint(double setpoint)
-    	{
-    		this.setpoint = setpoint;// this sets the starting point (0 degrees)
-    	}
+	public void init(DriveTrain dt)
+	{
+		this.dt = dt;
+	}
+	public PID_Controller()
+	{
+		kp = ki = kd = 1;
 		
-    	public void PID()
-        {
-    		
-    		double error = setpoint - g.getAngle(); // Error = Target - Actual (I'm also assuming that a clockwise angle is positive and counter clockwise is negative)
-    		integral += (error*.02); // Integral is increased by the error*time (which is .02 seconds using normal IterativeRobot)
-    		derivative = (error - previous_error) / .02;
-    		rcw = p*error + i*integral + d*derivative;//these constants will need to be tested heavily to find out what works
-    		previous_error = error;
-        }
+		lastUpdate = System.nanoTime();
+	}
 
-    	public double execute()
-    	{
-    		PID();
-    		return rcw;
-    	}
-		
-    	public void findAndChangeEnginePower() //note a positive change increases right power and negative increases left. The total power is constant throughout auton
-    	{
-    		
-    		double change = execute();
-    		enginePowerRight = f % 100; //this finds the right power
-    		enginePowerLeft = f - enginePowerRight;
-    		enginePowerLeft = enginePowerLeft / 100; //this finds the left power 
-         	enginePowerRight = enginePowerRight + change;
-         	enginePowerLeft = enginePowerLeft - change;
-         	f = (enginePowerRight * 100) + enginePowerLeft;     
-    	}
-
+	public double update()
+	{
+		double angle = sm.getAngle();
+		long dTime = System.nanoTime() / 1000000000 - lastUpdate;
+		double retVal = 0;
+		//if (dTime > 0.004)
+		{
+			double error = setPoint - angle; 
+			summedError = (summedError + error) * dTime;
+			double dError = (error - lastError) / dTime;
+			
+			retVal = kp * error + ki * summedError + kd * dError; 
+			lastUpdate = System.nanoTime() / 1000000000;
+		}
+			return retVal;	
+	}
 	
-	
+	public void pidDrive(double speed)	//speed in -1 to 1
+	{
+		double change = this.update();
+		dt.drive(speed-change, speed+change);
+	}
+	public void setSetPoint(double x)
+	{
+		setPoint = x;
+	}
 }
+
+

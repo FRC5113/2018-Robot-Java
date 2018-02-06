@@ -3,6 +3,7 @@ package frc.team5113.robot;
 import edu.wpi.first.wpilibj.IterativeRobot;
 import frc.team5113.managers.*;
 import frc.team5113.subsytems.DriveTrain;
+import frc.team5113.subsytems.PID_Controller;
 import sensors.Gyro;
 import sensors.Lidar;
 import sensors.Proximity;
@@ -14,7 +15,7 @@ public class Robot extends IterativeRobot
 	JoystickManager jm;
 	SensorManager smanager;
 	AutonManager auton;
-	
+	PID_Controller pid;
 	//delete
 	long time;
 	
@@ -29,13 +30,17 @@ public class Robot extends IterativeRobot
     	
     	smanager = new SensorManager();
     	smanager.init();
-    	smanager.add(new Gyro("Gyro"));
+    	//smanager.add(new Gyro("Gyro"));
     	smanager.add(new Proximity("Proximity", 3));
     	smanager.add(new Lidar("Lidar"));
     	smanager.add(new StringPot("StringPot", 1));
     	
+    	pid = new PID_Controller(.05,0,0.05, smanager);
+    	
+    	
+    	
     	auton = new AutonManager();
-    	auton.init();
+    	auton.init(smanager, dt, pid);
     	
     	//delete
     	time = System.currentTimeMillis();
@@ -74,7 +79,7 @@ public class Robot extends IterativeRobot
     @Override
     public void autonomousPeriodic()
     {
-    	auton.update(dt, smanager);
+    	auton.update();
     }
 
     @Override
@@ -83,9 +88,6 @@ public class Robot extends IterativeRobot
     	jm.handleJoystickControls(dt);
     	smanager.update();
 
-    	System.out.println(System.currentTimeMillis() - time);
-    	System.out.println(System.nanoTime() / 1000000.0);
-    	
     	time = System.currentTimeMillis();
     }
 

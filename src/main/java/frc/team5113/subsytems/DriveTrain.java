@@ -17,6 +17,7 @@ public class DriveTrain
 		leftFront = new WPI_TalonSRX(0);
 		rightRear = new WPI_TalonSRX(1);
 		rightFront = new WPI_TalonSRX(3);
+		
 		/*
 		leftRear.configSelectedFeedbackSensor(lr, 0, 100);
 		leftFront.configSelectedFeedbackSensor(lf, 0, 100);

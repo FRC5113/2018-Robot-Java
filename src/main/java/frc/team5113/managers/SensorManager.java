@@ -3,7 +3,10 @@ package frc.team5113.managers;
 import java.util.HashMap;
 import java.util.Map.Entry;
 
+import com.kauailabs.navx.frc.AHRS;
+
 import edu.wpi.first.wpilibj.AnalogInput;
+import edu.wpi.first.wpilibj.SPI.Port;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 import sensors.Sensor;
 
@@ -12,11 +15,12 @@ public class SensorManager
     HashMap<String, Sensor> SensorMap;
     long timeTaken, lastUpdate = 0;
     long timeTolerance;
-    
+    AHRS navx;
     public void init() 
     {
     	timeTolerance = 5000000;
         SensorMap = new HashMap<String, Sensor>();
+        navx = new AHRS(Port.kMXP);
     }
     
     //adds a sensor to the hashmap
@@ -49,6 +53,13 @@ public class SensorManager
             {
                 entry.getValue().update(timeTaken);
             }
+            SmartDashboard.putNumber("NavX", navx.getAngle());
+            
         }        
+    }
+    
+    public double getAngle()
+    {
+    	return navx.getAngle();
     }
 }
